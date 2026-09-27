@@ -66,17 +66,6 @@ window.profileData = {
     // Danh sách các dự án đã thực hiện
     projects: [
         {
-            title: "discord auto quest ",
-            category: "Tool",
-            categoryColorClass: "text-cyan-400 border-cyan-500/30",
-            description: "Hệ thống làm nhiệm vụ discord kiếm orbs cập nhật theo thời gian thực.",
-            image: "https://i.pinimg.com/736x/34/8b/cf/348bcfbc8750e29048ebd1fcc7b9e60d.jpg",
-            tags: ["bot.json"],
-            demoUrl: "lỗi rồi!",
-            githubUrl: "https://github.com",
-            isFullWidth: false
-        },
-        {
             title: "roblox cookie checker ",
             category: "Web3 / DApp",
             categoryColorClass: "text-purple-400 border-purple-500/30",
@@ -94,7 +83,7 @@ window.profileData = {
     contactBanner: {
         title: "Bạn có dự án thú vị cần phát triển?",
         subtitle: "Liên hệ mình ngay nhé !",
-        emailUrl: "31th05lekhoi@gmail.com",
+        emailUrl: "https://mail.google.com/mail/u/0/#inbox",
         telegramUrl: "https://web.telegram.org/a/#8799036722"
     },
 
