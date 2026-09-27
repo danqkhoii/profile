@@ -6,9 +6,9 @@ window.profileData = {
     personal: {
         name: "Lê Đinh Đăng Khôi",
         role: "Students ",
-        statusBadge: "⚡",
+        statusBadge: "⚡ Đang online",
         location: "Khánh Hòa, Việt Nam",
-        bio: "với một năm kinh nghiệm",
+        bio: "người đẹp trai",
         
         // Đường dẫn Avatar (Hỗ trợ URL ảnh JPG/PNG/WebP hoặc URL Video MP4/WebM 4K)
         avatar: {
@@ -33,7 +33,7 @@ window.profileData = {
             name: "Google / Email",
             iconClass: "fa-brands fa-google text-amber-500",
             hoverBgClass: "hover:bg-amber-600/20 hover:border-amber-500/50",
-            url: "mailto:alex.morgan@example.com"
+            url: "31th05lekhoi@gmail.com"
         },
         {
             name: "GitHub",
@@ -72,9 +72,9 @@ window.profileData = {
             description: "Hệ thống làm nhiệm vụ discord kiếm orbs cập nhật theo thời gian thực.",
             image: "https://i.pinimg.com/736x/34/8b/cf/348bcfbc8750e29048ebd1fcc7b9e60d.jpg",
             tags: ["bot.json"],
-            demoUrl: "",
+            demoUrl: "lỗi rồi!",
             githubUrl: "https://github.com",
-            isFullWidth: true
+            isFullWidth: false
         },
         {
             title: "roblox cookie checker ",
@@ -94,7 +94,7 @@ window.profileData = {
     contactBanner: {
         title: "Bạn có dự án thú vị cần phát triển?",
         subtitle: "Liên hệ mình ngay nhé !",
-        emailUrl: "mailto:alex.morgan@example.com",
+        emailUrl: "31th05lekhoi@gmail.com",
         telegramUrl: "https://web.telegram.org/a/#8799036722"
     },
 
