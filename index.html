@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="vi" class="h-full scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Cá Nhân - Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                        'gradient-x': 'gradientX 6s ease infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-8px)' },
+                        },
+                        gradientX: {
+                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
+                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Glassmorphism Panels */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card-hover {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-card-hover:hover {
+            background: rgba(30, 41, 59, 0.75);
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Avatar Glowing Ring Effect */
+        .avatar-glow-ring {
+            background: linear-gradient(135deg, #06b6d4, #8b5cf6, #ec4899);
+            background-size: 200% 200%;
+            animation: gradientX 4s ease infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+    
+    <!-- Import File Cấu Hình data.js -->
+    <script src="data.js"></script>
+</head>
+
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen selection:bg-indigo-500 selection:text-white relative overflow-x-hidden">
+
+    <!-- Ambient Light Effects -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px]"></div>
+        <div class="absolute top-1/3 -right-40 w-96 h-96 bg-cyan-500/20 rounded-full blur-[120px]"></div>
+        <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-indigo-600/20 rounded-full blur-[120px]"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+    </div>
+
+    <!-- Header Action Bar -->
+    <header class="relative z-20 max-w-5xl mx-auto px-4 pt-6 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Portfolio</span>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button onclick="shareProfile()" class="px-4 py-2 bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-200 text-xs font-semibold rounded-full transition-all flex items-center space-x-2 shadow-lg backdrop-blur-md">
+                <i class="fa-solid fa-share-nodes text-indigo-400"></i>
+                <span>Chia sẻ trang</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="relative z-10 max-w-4xl mx-auto px-4 py-8 space-y-10">
+
+        <!-- 1. PROFILE HEADER CARD -->
+        <section class="glass-card rounded-3xl p-8 sm:p-10 shadow-2xl relative overflow-hidden border border-slate-800">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-indigo-500/10 blur-3xl pointer-events-none"></div>
+
+            <div class="flex flex-col items-center text-center relative z-10">
+
+                <!-- Status Badge -->
+                <div id="statusBadge" class="inline-flex items-center space-x-2 mb-6 px-4 py-1.5 rounded-full text-xs font-semibold bg-indigo-950/80 text-indigo-300 border border-indigo-500/30 backdrop-blur-md shadow-lg animate-float">
+                    <span class="w-2 h-2 rounded-full bg-indigo-400 animate-ping"></span>
+                    <span id="statusText">...</span>
+                </div>
+
+                <!-- Avatar Frame -->
+                <div class="relative group mb-6">
+                    <div class="absolute -inset-1.5 rounded-full avatar-glow-ring opacity-90 blur-[3px]"></div>
+                    
+                    <div id="avatarContainer" class="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden bg-slate-900 border-2 border-slate-900 shadow-2xl flex items-center justify-center">
+                        <!-- Render qua JS -->
+                    </div>
+
+                    <div id="verifiedBadge" class="hidden absolute bottom-1 right-1 bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center border-2 border-slate-950 shadow-xl text-xs" title="Đã xác minh thông tin">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                </div>
+
+                <!-- User Info -->
+                <h1 id="userName" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-2"></h1>
+                <p id="userRole" class="text-base sm:text-lg font-semibold bg-gradient-to-r from-indigo-400 via-purple-300 to-cyan-400 bg-clip-text text-transparent mb-3"></p>
+
+                <div class="flex items-center space-x-2 text-xs sm:text-sm text-slate-400 mb-5">
+                    <i class="fa-solid fa-location-dot text-indigo-400"></i>
+                    <span id="userLocation"></span>
+                </div>
+
+                <p id="userBio" class="text-sm text-slate-300 max-w-xl leading-relaxed mb-8 font-normal"></p>
+
+                <!-- Social Links Grid -->
+                <div id="socialsGrid" class="w-full max-w-2xl grid grid-cols-2 sm:grid-cols-4 gap-3"></div>
+
+            </div>
+        </section>
+
+        <!-- 2. BENTO STATS & TECH STACK -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="glass-card rounded-3xl p-6 flex flex-col justify-between border border-slate-800">
+                <div id="expIcon" class="w-10 h-10 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-code-commit text-base"></i>
+                </div>
+                <div>
+                    <span id="expNumber" class="text-3xl font-extrabold text-white"></span>
+                    <p id="expLabel" class="text-xs text-slate-400 mt-1"></p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl p-6 flex flex-col justify-between border border-slate-800">
+                <div id="projectsIcon" class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-rocket text-base"></i>
+                </div>
+                <div>
+                    <span id="projectsNumber" class="text-3xl font-extrabold text-white"></span>
+                    <p id="projectsLabel" class="text-xs text-slate-400 mt-1"></p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-3xl p-6 border border-slate-800">
+                <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Công Nghệ Sổ Tay</h3>
+                <div id="skillsContainer" class="flex flex-wrap gap-2"></div>
+            </div>
+        </section>
+
+        <!-- 3. FEATURED PROJECTS SECTION -->
+        <section class="space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center text-sm font-bold">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-white">Dự Án Đã Thực Hiện</h2>
+                </div>
+                <span id="projectsCount" class="text-xs text-slate-400"></span>
+            </div>
+
+            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        </section>
+
+        <!-- 4. QUICK CONTACT FOOTER BANNER -->
+        <section class="glass-card rounded-3xl p-8 border border-slate-800 text-center relative overflow-hidden">
+            <div class="absolute -bottom-20 -right-20 w-60 h-60 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+            <h2 id="contactTitle" class="text-2xl font-extrabold text-white mb-2"></h2>
+            <p id="contactSubtitle" class="text-xs text-slate-400 max-w-md mx-auto mb-6"></p>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <a id="contactEmailBtn" href="#" class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold rounded-2xl text-xs shadow-lg shadow-indigo-600/25 transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Gửi Email Trực Tiếp</span>
+                </a>
+                <a id="contactTelegramBtn" href="#" target="_blank" class="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold rounded-2xl text-xs transition-all flex items-center space-x-2">
+                    <i class="fa-brands fa-telegram text-sky-400"></i>
+                    <span>Nói chuyện qua Telegram</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Copyright -->
+        <footer class="text-center text-xs text-slate-500 py-4">
+            <p id="footerCopyright"></p>
+        </footer>
+
+    </main>
+
+    <!-- Floating Contact Button -->
+    <a id="floatingContactBtn" href="#" class="fixed bottom-6 right-6 z-40 w-12 h-12 bg-gradient-to-tr from-indigo-600 to-purple-600 text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300 border border-white/20" title="Liên hệ nhanh">
+        <i class="fa-solid fa-message text-lg"></i>
+    </a>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 left-6 z-50 transform -translate-y-10 opacity-0 transition-all duration-300 bg-slate-900 text-white border border-slate-700 px-4 py-3 rounded-2xl shadow-2xl flex items-center space-x-3 pointer-events-none">
+        <div class="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center text-white text-xs">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <p id="toastMessage" class="text-xs font-semibold">Đã sao chép liên kết vào bộ nhớ tạm!</p>
+    </div>
+
+    <!-- JavaScript Dynamic Render Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const data = window.profileData;
+            if (!data) {
+                console.error("Không tìm thấy dữ liệu profileData từ data.js");
+                return;
+            }
+
+            // 1. Render Personal Info
+            document.getElementById('statusText').textContent = data.personal.statusBadge;
+            document.getElementById('userName').textContent = data.personal.name;
+            document.title = `${data.personal.name} - Personal Profile`;
+            document.getElementById('userRole').textContent = data.personal.role;
+            document.getElementById('userLocation').textContent = data.personal.location;
+            document.getElementById('userBio').textContent = data.personal.bio;
+
+            // Render Avatar
+            const avatarContainer = document.getElementById('avatarContainer');
+            if (data.personal.avatar.type === 'video') {
+                avatarContainer.innerHTML = `<video src="${data.personal.avatar.url}" autoplay loop muted playsinline class="w-full h-full object-cover"></video>`;
+            } else {
+                avatarContainer.innerHTML = `<img src="${data.personal.avatar.url}" alt="${data.personal.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">`;
+            }
+
+            if (data.personal.avatar.verified) {
+                document.getElementById('verifiedBadge').classList.remove('hidden');
+            }
+
+            // Render Social Links
+            const socialsGrid = document.getElementById('socialsGrid');
+            socialsGrid.innerHTML = data.socials.map(social => `
+                <a href="${social.url}" target="_blank" class="flex items-center justify-center space-x-2.5 px-4 py-3 bg-slate-900/90 ${social.hoverBgClass} border border-slate-800 rounded-2xl text-slate-300 hover:text-white transition-all duration-300 group">
+                    <i class="${social.iconClass} text-base group-hover:scale-110 transition-transform"></i>
+                    <span class="text-xs font-semibold">${social.name}</span>
+                </a>
+            `).join('');
+
+            // 2. Render Bento Stats & Tech Stack
+            const stats = data.statsAndSkills;
+            document.getElementById('expNumber').textContent = stats.experience.number;
+            document.getElementById('expLabel').textContent = stats.experience.label;
+            document.getElementById('expIcon').innerHTML = `<i class="${stats.experience.iconClass}"></i>`;
+
+            document.getElementById('projectsNumber').textContent = stats.completedProjects.number;
+            document.getElementById('projectsLabel').textContent = stats.completedProjects.label;
+            document.getElementById('projectsIcon').innerHTML = `<i class="${stats.completedProjects.iconClass}"></i>`;
+
+            const skillsContainer = document.getElementById('skillsContainer');
+            skillsContainer.innerHTML = stats.skills.map(skill => `
+                <span class="px-2.5 py-1 bg-slate-800/80 ${skill.colorClass} rounded-lg text-xs font-medium border border-slate-700/60 flex items-center">
+                    <i class="${skill.iconClass} mr-1.5"></i>${skill.name}
+                </span>
+            `).join('');
+
+            // 3. Render Projects Grid
+            document.getElementById('projectsCount').textContent = `Nổi bật (${data.projects.length})`;
+            const projectsGrid = document.getElementById('projectsGrid');
+            
+            projectsGrid.innerHTML = data.projects.map(project => {
+                const tagsHtml = project.tags.map(tag => `
+                    <span class="px-2 py-0.5 bg-slate-800 text-[10px] text-slate-300 rounded-md">${tag}</span>
+                `).join('');
+
+                if (project.isFullWidth) {
+                    return `
+                        <div class="md:col-span-2 glass-card glass-card-hover rounded-3xl overflow-hidden border border-slate-800 p-6 sm:p-8 flex flex-col md:flex-row items-center gap-6 group">
+                            <div class="w-full md:w-1/2 h-52 rounded-2xl overflow-hidden relative bg-slate-900 shrink-0">
+                                <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent"></div>
+                            </div>
+                            <div class="w-full md:w-1/2 flex flex-col justify-between h-full">
+                                <div>
+                                    <span class="px-2.5 py-1 bg-slate-900/80 ${project.categoryColorClass} text-[10px] font-bold rounded-full border inline-block mb-2">${project.category}</span>
+                                    <h3 class="text-xl font-bold text-white group-hover:text-amber-300 transition-colors mb-2">${project.title}</h3>
+                                    <p class="text-xs text-slate-400 leading-relaxed mb-4">${project.description}</p>
+                                    <div class="flex flex-wrap gap-1.5 mb-6">${tagsHtml}</div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <a href="${project.demoUrl}" target="_blank" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-semibold transition-all flex items-center space-x-1.5">
+                                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                        <span>Trải nghiệm ngay</span>
+                                    </a>
+                                    <a href="${project.githubUrl}" target="_blank" class="px-3.5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition-all" title="Mã nguồn">
+                                        <i class="fa-brands fa-github text-sm"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="glass-card glass-card-hover rounded-3xl overflow-hidden border border-slate-800 flex flex-col justify-between group">
+                        <div>
+                            <div class="relative h-48 overflow-hidden bg-slate-900">
+                                <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                                <span class="absolute top-3 right-3 px-2.5 py-1 bg-slate-900/80 backdrop-blur-md ${project.categoryColorClass} text-[10px] font-bold rounded-full border">${project.category}</span>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors mb-2">${project.title}</h3>
+                                <p class="text-xs text-slate-400 leading-relaxed mb-4">${project.description}</p>
+                                <div class="flex flex-wrap gap-1.5 mb-2">${tagsHtml}</div>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-2 flex items-center space-x-3">
+                            <a href="${project.demoUrl}" target="_blank" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold text-center transition-all flex items-center justify-center space-x-1.5">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                <span>Xem Demo</span>
+                            </a>
+                            <a href="${project.githubUrl}" target="_blank" class="px-3.5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold transition-all" title="Mã nguồn">
+                                <i class="fa-brands fa-github text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // 4. Render Contact & Footer
+            document.getElementById('contactTitle').textContent = data.contactBanner.title;
+            document.getElementById('contactSubtitle').textContent = data.contactBanner.subtitle;
+            document.getElementById('contactEmailBtn').href = data.contactBanner.emailUrl;
+            document.getElementById('contactTelegramBtn').href = data.contactBanner.telegramUrl;
+            document.getElementById('floatingContactBtn').href = data.personal.quickContactEmail ? `mailto:${data.personal.quickContactEmail}` : '#';
+            document.getElementById('footerCopyright').textContent = data.footerText;
+        });
+
+        // Share Link Toast Helper
+        function shareProfile() {
+            const tempInput = document.createElement('input');
+            tempInput.value = window.location.href;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            showToast("Đã sao chép liên kết trang cá nhân!");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.remove('-translate-y-10', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('-translate-y-10', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
